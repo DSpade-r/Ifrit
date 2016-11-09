@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Ifrit.Models;
+using System.Collections.Generic;
 
 namespace Ifrit.Controllers
 {
@@ -51,7 +52,7 @@ namespace Ifrit.Controllers
                 _userManager = value;
             }
         }
-
+        #region Login
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -90,7 +91,8 @@ namespace Ifrit.Controllers
                     return View(model);
             }
         }
-
+        #endregion
+        #region VerifyCode
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -133,12 +135,17 @@ namespace Ifrit.Controllers
                     return View(model);
             }
         }
-
+        #endregion
+        #region Register
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
+            //list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
+            //ViewBag.List = list;
             return View();
         }
 
@@ -155,6 +162,7 @@ namespace Ifrit.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.Role);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
@@ -171,7 +179,8 @@ namespace Ifrit.Controllers
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
-
+        #endregion
+        #region ConfirmEmail
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -184,7 +193,8 @@ namespace Ifrit.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
+        #endregion
+        #region ForgotPassword
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -219,7 +229,7 @@ namespace Ifrit.Controllers
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
-        }
+        }        
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -228,7 +238,8 @@ namespace Ifrit.Controllers
         {
             return View();
         }
-
+        #endregion
+        #region ResetPassword
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
@@ -270,7 +281,8 @@ namespace Ifrit.Controllers
         {
             return View();
         }
-
+        #endregion
+        #region ExternalLogin
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -281,42 +293,6 @@ namespace Ifrit.Controllers
             // Запрос перенаправления к внешнему поставщику входа
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
-        //
-        // GET: /Account/SendCode
-        [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
-        {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
-            {
-                return View("Error");
-            }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
-
-        //
-        // POST: /Account/SendCode
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            // Создание и отправка маркера
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
-            {
-                return View("Error");
-            }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
-        }
-
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
@@ -371,6 +347,7 @@ namespace Ifrit.Controllers
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.Role);
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
@@ -386,6 +363,51 @@ namespace Ifrit.Controllers
         }
 
         //
+        // GET: /Account/ExternalLoginFailure
+        [AllowAnonymous]
+        public ActionResult ExternalLoginFailure()
+        {
+            return View();
+        }
+        #endregion
+        #region SendCode
+        //
+        // GET: /Account/SendCode
+        [AllowAnonymous]
+        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+        {
+            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            if (userId == null)
+            {
+                return View("Error");
+            }
+            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        }
+
+        //
+        // POST: /Account/SendCode
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            // Создание и отправка маркера
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            {
+                return View("Error");
+            }
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+        }
+        #endregion
+        #region LogOff
+        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -394,15 +416,7 @@ namespace Ifrit.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
-        }
-
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

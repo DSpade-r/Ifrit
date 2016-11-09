@@ -1,6 +1,9 @@
 ﻿@model Ifrit.Models.ExternalLoginConfirmationViewModel
 @{
     ViewBag.Title = "Регистрация";
+    List<SelectListItem> list = new List<SelectListItem>();
+    list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
+    list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
 }
 <h2>@ViewBag.Title.</h2>
 <h3>Связывание вашей учетной записи @ViewBag.LoginProvider.</h3>
@@ -22,6 +25,12 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Role, list, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

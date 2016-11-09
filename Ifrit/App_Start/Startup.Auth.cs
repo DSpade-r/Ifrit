@@ -53,16 +53,18 @@ namespace Ifrit
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
+            
+            //добавление авторизации facebook
+            app.UseFacebookAuthentication(
+               appId: "1983364871890432",
+               appSecret: "e20d0c5f33a7428b54e0af4a077bc031");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //добавление авторизации google
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "781763547044-nugeq1gkt8qs6d4njitm8iuko2jt3j7n.apps.googleusercontent.com",
+                ClientSecret = "m7OA8UifBZGOo9Cbi1VCQZ09"
+            });
         }
     }
 }
