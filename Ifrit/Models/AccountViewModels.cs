@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Ifrit.Models
 {
@@ -11,6 +12,7 @@ namespace Ifrit.Models
         [Required]
         [Display(Name = "Ваша роль")]
         public string Role { get; set; }
+        public List<SelectListItem> List { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -80,11 +82,12 @@ namespace Ifrit.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
         [Required]
         [Display(Name = "Ваша роль")]
         public string Role { get; set; }
+        public List<SelectListItem> List { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -102,7 +105,7 @@ namespace Ifrit.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

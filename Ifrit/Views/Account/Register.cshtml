@@ -1,9 +1,6 @@
 ﻿@model Ifrit.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Регистрация";
-    List<SelectListItem> list = new List<SelectListItem>();
-    list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
-    list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });    
+    ViewBag.Title = "Регистрация";     
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -35,7 +32,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">            
-            @Html.DropDownListFor(m => m.Role, list, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Role, Model.List, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

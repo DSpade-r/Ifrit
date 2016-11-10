@@ -142,11 +142,13 @@ namespace Ifrit.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            //List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
-            //list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
+            RegisterViewModel model = new RegisterViewModel();
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
+            list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
             //ViewBag.List = list;
-            return View();
+            model.List = list;
+            return View(model);
         }
 
         //
@@ -319,7 +321,10 @@ namespace Ifrit.Controllers
                     // Если у пользователя нет учетной записи, то ему предлагается создать ее
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    List<SelectListItem> list = new List<SelectListItem>();
+                    list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
+                    list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });                                     
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, List = list });
             }
         }
 
@@ -356,8 +361,7 @@ namespace Ifrit.Controllers
                     }
                 }
                 AddErrors(result);
-            }
-
+            }                   
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
