@@ -64,7 +64,7 @@ namespace Ifrit
             {
                 ClientId = "781763547044-nugeq1gkt8qs6d4njitm8iuko2jt3j7n.apps.googleusercontent.com",
                 ClientSecret = "m7OA8UifBZGOo9Cbi1VCQZ09"
-            });
+            });            
         }
     }
 }

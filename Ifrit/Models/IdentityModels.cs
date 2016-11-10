@@ -24,7 +24,8 @@ namespace Ifrit.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<CV> CV { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e0050dd648d46acb128d3a70a94993e" Name="Diagram1" ZoomLevel="150">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="1.125" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="2.125" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="2.125" PointX="5.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUsers" Width="2.25" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.CVs" Width="1.5" PointX="6" PointY="9.875" />
+        <EntityTypeShape EntityType="Model.Vacancies" Width="1.5" PointX="6" PointY="7" />
+        <AssociationConnector Association="Model.FK_dbo_CVs_dbo_AspNetUsers_User_Id" />
+        <AssociationConnector Association="Model.FK_dbo_Vacancies_dbo_AspNetUsers_User_Id" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
