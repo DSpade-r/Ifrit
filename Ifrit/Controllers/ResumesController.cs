@@ -16,11 +16,19 @@ namespace Ifrit.Controllers
     public class ResumesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        //Метод определения текущего пользователя
+        private async Task<ApplicationUser> GetCurrentUser()
+        {
+            ApplicationUser user = new ApplicationUser();
+            string userId = User.Identity.GetUserId();
+            return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        }
 
         // GET: Resumes
         public async Task<ActionResult> Index()
         {
-            return View(await db.Resumes.ToListAsync());
+            ApplicationUser user = await GetCurrentUser();
+            return View(user.Resumes.ToList());            
         }
 
         // GET: Resumes/Details/5
@@ -51,10 +59,7 @@ namespace Ifrit.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Resume resume)
         {
-            ApplicationUser user = new ApplicationUser();
-            string userId = User.Identity.GetUserId();
-            //user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            user = db.Users.FirstOrDefaultAsync(u => u.Id == userId).Result;
+            ApplicationUser user = await GetCurrentUser();
             user.Resumes.Add(resume);
             db.Users.Attach(user);
             await db.SaveChangesAsync();
@@ -82,14 +87,11 @@ namespace Ifrit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ResumeId,Title,Body,Salary")] Resume resume)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(resume).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(resume);
+        {            
+            resume.User = await GetCurrentUser();
+            db.Entry(resume).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");            
         }
 
         // GET: Resumes/Delete/5

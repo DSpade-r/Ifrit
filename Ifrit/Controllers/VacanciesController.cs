@@ -17,11 +17,18 @@ namespace Ifrit.Controllers
     public class VacanciesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: Vacancies
-        public async Task<ActionResult> Index()
+        //Метод определения текущего пользователя
+        private async Task<ApplicationUser> GetCurrentUser()
         {
-            return View(await db.Vacancies.ToListAsync());
+            ApplicationUser user = new ApplicationUser();
+            string userId = User.Identity.GetUserId();            
+            return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        }
+        // GET: Vacancies
+        public async Task<ActionResult>Index()
+        {
+            var user = await GetCurrentUser();
+            return View(user.Vacancies.ToList());
         }
 
         // GET: Vacancies/Details/5
@@ -45,17 +52,12 @@ namespace Ifrit.Controllers
             return View();
         }
 
-        // POST: Vacancies/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Vacancies/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Vacancy vacancy)
-        {           
-            ApplicationUser user = new ApplicationUser();
-            string userId = User.Identity.GetUserId();
-            //user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            user = db.Users.FirstOrDefaultAsync(u => u.Id == userId).Result;
+        {
+            var user = await GetCurrentUser();
             user.Vacancies.Add(vacancy);
             db.Users.Attach(user);
             await db.SaveChangesAsync();            
@@ -77,20 +79,15 @@ namespace Ifrit.Controllers
             return View(vacancy);
         }
 
-        // POST: Vacancies/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Vacancies/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "VacancyId,Title,Body,Salary")] Vacancy vacancy)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Edit(Vacancy vacancy)
+        {                
+                vacancy.User = await GetCurrentUser();
                 db.Entry(vacancy).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(vacancy);
+                return RedirectToAction("Index");            
         }
 
         // GET: Vacancies/Delete/5
