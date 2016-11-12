@@ -1,3 +1,18 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Context.User.IsInRole("applicant"))
+    {
+        Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
+    }
+    if (Context.User.IsInRole("employer"))
+    {
+        Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+    }
+    if (Context.User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    if (!Context.User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }

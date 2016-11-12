@@ -18,6 +18,13 @@ namespace Ifrit.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private List<SelectListItem> DropDownListItems()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
+            list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
+            return list;
+        }
 
         public AccountController()
         {
@@ -142,13 +149,7 @@ namespace Ifrit.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            RegisterViewModel model = new RegisterViewModel();
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
-            list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });
-            //ViewBag.List = list;
-            model.List = list;
-            return View(model);
+            return View(new RegisterViewModel() { List = DropDownListItems()});
         }
 
         //
@@ -177,7 +178,7 @@ namespace Ifrit.Controllers
                 }
                 AddErrors(result);
             }
-
+            model.List = DropDownListItems();
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
@@ -320,11 +321,8 @@ namespace Ifrit.Controllers
                 default:
                     // Если у пользователя нет учетной записи, то ему предлагается создать ее
                     ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list.Add(new SelectListItem() { Text = "Работодатель", Value = "employer" });
-                    list.Add(new SelectListItem() { Text = "Соискатель", Value = "applicant", Selected = true });                                     
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, List = list });
+                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;                    
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, List = DropDownListItems() });
             }
         }
 
@@ -363,6 +361,7 @@ namespace Ifrit.Controllers
                 AddErrors(result);
             }                   
             ViewBag.ReturnUrl = returnUrl;
+            model.List = DropDownListItems();
             return View(model);
         }
 

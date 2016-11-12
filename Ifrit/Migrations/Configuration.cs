@@ -31,25 +31,25 @@ namespace Ifrit.Migrations
             //    );
             //
 
-            //-----∆есткое добавление ролей
+            ////-----∆есткое добавление ролей
             //context.Roles.AddOrUpdate(r => r.Name,
             //    new IdentityRole { Name = "admin" },
             //    new IdentityRole { Name = "applicant" },
             //    new IdentityRole { Name = "employer" });
-            //-----ƒобавление ролей
-            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            string[] roleNames = { "admin", "applicant", "employer" };
-            IdentityResult result;
-            foreach (var role in roleNames)
-            {
-                if (!RoleManager.RoleExists(role))
-                {
-                    result = RoleManager.Create(new IdentityRole(role));
-                }
-            }
+            ////-----ƒобавление ролей
+            //var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            //string[] roleNames = { "admin", "applicant", "employer" };
+            //IdentityResult result;
+            //foreach (var role in roleNames)
+            //{
+            //    if (!RoleManager.RoleExists(role))
+            //    {
+            //        result = RoleManager.Create(new IdentityRole(role));
+            //    }
+            //}
             //прив€зка ролей к пользовател€м(в таблице по ключам)
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            UserManager.AddToRole("be34115f-7208-4688-ad83-f1b27fe2f92c", "admin"); //идентификатор пользовател€ прив€зываем к названию(Name) роли
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            //UserManager.AddToRole("ba1c86aa-674c-4a8b-8836-63d0b9dc86dc", "admin"); //идентификатор пользовател€ прив€зываем к названию(Name) роли
         }
     }
 }

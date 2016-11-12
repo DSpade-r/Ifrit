@@ -7,13 +7,13 @@ namespace Ifrit.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UserDataMigration : IMigrationMetadata
+    public sealed partial class Correct3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserDataMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Correct3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611101230344_UserDataMigration"; }
+            get { return "201611121302311_Correct3"; }
         }
         
         string IMigrationMetadata.Source

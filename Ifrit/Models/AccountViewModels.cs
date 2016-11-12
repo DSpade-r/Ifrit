@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace Ifrit.Models
@@ -87,6 +88,7 @@ namespace Ifrit.Models
         [Required]
         [Display(Name = "Ваша роль")]
         public string Role { get; set; }
+        [ScaffoldColumn(false)]
         public List<SelectListItem> List { get; set; }
     }
 

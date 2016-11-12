@@ -10,20 +10,18 @@ namespace Ifrit.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            if (User.IsInRole("applicant"))
+            {
+                return RedirectToAction("Index","Resumes");
+            }
+            if (User.IsInRole("employer"))
+            {
+                return RedirectToAction("Index", "Vacancies");
+            }
+            if (User.IsInRole("admin"))
+            {
+                return View();
+            }            
             return View();
         }
     }

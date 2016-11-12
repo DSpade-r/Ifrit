@@ -197,51 +197,39 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AspNetRoles.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaims.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogins.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUsers.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\ResumesController.cs" />
+    <Compile Include="Controllers\VacanciesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611091047079_InitialCreate.cs" />
-    <Compile Include="Migrations\201611091047079_InitialCreate.Designer.cs">
-      <DependentUpon>201611091047079_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201611121045235_DataMigration.cs" />
+    <Compile Include="Migrations\201611121045235_DataMigration.Designer.cs">
+      <DependentUpon>201611121045235_DataMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611101230344_UserDataMigration.cs" />
-    <Compile Include="Migrations\201611101230344_UserDataMigration.Designer.cs">
-      <DependentUpon>201611101230344_UserDataMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201611121133546_FixDB.cs" />
+    <Compile Include="Migrations\201611121133546_FixDB.Designer.cs">
+      <DependentUpon>201611121133546_FixDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121142557_FixDB2.cs" />
+    <Compile Include="Migrations\201611121142557_FixDB2.Designer.cs">
+      <DependentUpon>201611121142557_FixDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121234473_Correct1.cs" />
+    <Compile Include="Migrations\201611121234473_Correct1.Designer.cs">
+      <DependentUpon>201611121234473_Correct1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121248151_Correct2.cs" />
+    <Compile Include="Migrations\201611121248151_Correct2.Designer.cs">
+      <DependentUpon>201611121248151_Correct2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121302311_Correct3.cs" />
+    <Compile Include="Migrations\201611121302311_Correct3.Designer.cs">
+      <DependentUpon>201611121302311_Correct3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -256,27 +244,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -301,8 +272,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -324,9 +293,39 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutEmployer.cshtml" />
+    <Content Include="Views\Shared\_LayoutApplicant.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Vacancies\Create.cshtml" />
+    <Content Include="Views\Vacancies\Delete.cshtml" />
+    <Content Include="Views\Vacancies\Details.cshtml" />
+    <Content Include="Views\Vacancies\Edit.cshtml" />
+    <Content Include="Views\Vacancies\Index.cshtml" />
+    <Content Include="Views\Resumes\Create.cshtml" />
+    <Content Include="Views\Resumes\Delete.cshtml" />
+    <Content Include="Views\Resumes\Details.cshtml" />
+    <Content Include="Views\Resumes\Edit.cshtml" />
+    <Content Include="Views\Resumes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201611121045235_DataMigration.resx">
+      <DependentUpon>201611121045235_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121133546_FixDB.resx">
+      <DependentUpon>201611121133546_FixDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121142557_FixDB2.resx">
+      <DependentUpon>201611121142557_FixDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121234473_Correct1.resx">
+      <DependentUpon>201611121234473_Correct1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121248151_Correct2.resx">
+      <DependentUpon>201611121248151_Correct2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121302311_Correct3.resx">
+      <DependentUpon>201611121302311_Correct3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -337,15 +336,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611091047079_InitialCreate.resx">
-      <DependentUpon>201611091047079_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101230344_UserDataMigration.resx">
-      <DependentUpon>201611101230344_UserDataMigration.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
