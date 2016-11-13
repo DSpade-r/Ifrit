@@ -40,6 +40,11 @@
     @if (User.IsInRole("applicant"))
     {
         @Html.ActionLink("Редакстировать", "Edit", new { id = Model.ResumeId }) @:|
-        @Html.ActionLink("Назад к списку вакансий", "Index");
+        @Html.ActionLink("Назад к списку резюме", "Index");
+    }
+    @if (User.IsInRole("employer"))
+    {
+        @Html.ActionLink("Пригласить на собеседование", "Invite", "Interaction", new { id = Model.ResumeId }) @:|
+        @Html.ActionLink("Назад к поиску", "Find");
     }
 </p>

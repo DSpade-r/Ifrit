@@ -39,7 +39,6 @@ namespace Ifrit.Controllers
         public async Task<ActionResult> Index()
         {
             ApplicationUser user = await GetCurrentUser();
-            var uuser = user.Resumes.ToList();
             return View(user.Resumes.ToList());            
         }
 

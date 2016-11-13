@@ -42,4 +42,9 @@
         @Html.ActionLink("Редакстировать", "Edit", new { id = Model.VacancyId }) @:|
         @Html.ActionLink("Назад к списку вакансий", "Index");
     }
+    @if (User.IsInRole("applicant"))
+    {
+        @Html.ActionLink("Откликнуться", "Respond", "Interaction", new { id = Model.VacancyId }) @:|
+        @Html.ActionLink("Назад к поиску", "Find");
+    }
 </p>
