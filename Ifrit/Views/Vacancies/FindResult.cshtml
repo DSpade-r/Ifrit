@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Ifrit.Models.Vacancy>
+@{
+    ViewBag.Title = "FindResult";
+}
+<h2></h2>
+
+@*<p>
+        @Html.ActionLink("Создать новое", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            Название
+        </th>
+        <th>
+            Содержание
+        </th>
+        <th>
+            Заработная плата
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.VacancyId }) |
+                @Html.ActionLink("Подробности", "Details", new { id = item.VacancyId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.VacancyId })
+            </td>
+        </tr>
+    }
+
+</table>

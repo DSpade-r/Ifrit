@@ -37,6 +37,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Редакстировать", "Edit", new { id = Model.VacancyId }) |
-    @Html.ActionLink("Назад к списку вакансий", "Index")
+    @if (User.IsInRole("employer"))
+    {
+        @Html.ActionLink("Редакстировать", "Edit", new { id = Model.VacancyId }) @:|
+        @Html.ActionLink("Назад к списку вакансий", "Index");
+    }
 </p>

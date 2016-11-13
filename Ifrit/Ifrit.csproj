@@ -319,6 +319,10 @@
     <Content Include="Views\Resumes\Details.cshtml" />
     <Content Include="Views\Resumes\Edit.cshtml" />
     <Content Include="Views\Resumes\Index.cshtml" />
+    <Content Include="Views\Resumes\Find.cshtml" />
+    <Content Include="Views\Resumes\FindResult.cshtml" />
+    <Content Include="Views\Vacancies\Find.cshtml" />
+    <Content Include="Views\Vacancies\FindResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611121045235_DataMigration.resx">

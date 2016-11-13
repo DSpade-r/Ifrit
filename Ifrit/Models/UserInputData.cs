@@ -31,4 +31,12 @@ namespace Ifrit.Models
         //public string User_id { get; set; }
         public ApplicationUser User { get; set; }
     }
+    public class UIFindResume
+    {
+        public string Title { get; set; }
+    }
+    public class UIFindVacancy
+    {
+        public string Title { get; set; }
+    }
 }

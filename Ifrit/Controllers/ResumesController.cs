@@ -13,9 +13,9 @@ using AutoMapper;
 
 namespace Ifrit.Controllers
 {
-    [Authorize(Roles = "applicant")]
     public class ResumesController : Controller
     {
+        #region вспомогательные методы и свойства
         private ApplicationDbContext db = new ApplicationDbContext();
         //Метод определения текущего пользователя
         private async Task<ApplicationUser> GetCurrentUser()
@@ -24,15 +24,27 @@ namespace Ifrit.Controllers
             string userId = User.Identity.GetUserId();
             return await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
+        #region CRUD методы
         // GET: Resumes
+        [Authorize(Roles = "applicant")]
         public async Task<ActionResult> Index()
         {
             ApplicationUser user = await GetCurrentUser();
+            var uuser = user.Resumes.ToList();
             return View(user.Resumes.ToList());            
         }
 
         // GET: Resumes/Details/5
+        [Authorize(Roles = "applicant, employer")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,12 +60,14 @@ namespace Ifrit.Controllers
         }
 
         // GET: Resumes/Create
+        [Authorize(Roles = "applicant")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Resumes/Create        
+        // POST: Resumes/Create  
+        [Authorize(Roles = "applicant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(UIResume resume)
@@ -72,9 +86,10 @@ namespace Ifrit.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-        }    
+        }
 
         // GET: Resumes/Edit/5
+        [Authorize(Roles = "applicant")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +111,7 @@ namespace Ifrit.Controllers
         // POST: Resumes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "applicant")]
         public async Task<ActionResult> Edit(UIResume UIresume)
         {
             //ApplicationUser user = await GetCurrentUser();
@@ -115,6 +131,7 @@ namespace Ifrit.Controllers
         }
 
         // GET: Resumes/Delete/5
+        [Authorize(Roles = "applicant")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,6 +149,7 @@ namespace Ifrit.Controllers
         // POST: Resumes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "applicant")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Resume resume = await db.Resumes.FindAsync(id);
@@ -139,14 +157,21 @@ namespace Ifrit.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
+        #endregion
+        #region поиск
+        // GET:
+        [Authorize(Roles = "employer")]
+        public ActionResult Find()
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return View();
         }
+        [HttpPost]
+        [Authorize(Roles = "employer")]
+        public async Task<ActionResult> Find(UIFindResume find)
+        {
+            var allResume = db.Resumes.Where(r => r.Title.ToLower().Contains(find.Title.ToLower())); //регистронезависимый поиск 
+            return View("FindResult",await allResume.ToListAsync());
+        }
+        #endregion        
     }
 }
