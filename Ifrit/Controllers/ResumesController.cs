@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Ifrit.Models;
 using Microsoft.AspNet.Identity;
+using AutoMapper;
 
 namespace Ifrit.Controllers
 {
@@ -52,19 +53,26 @@ namespace Ifrit.Controllers
             return View();
         }
 
-        // POST: Resumes/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Resumes/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Resume resume)
-        {
+        public async Task<ActionResult> Create(UIResume resume)
+        {          
             ApplicationUser user = await GetCurrentUser();
-            user.Resumes.Add(resume);
-            db.Users.Attach(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+            if (ModelState.IsValid)
+            {
+                //конфигурация маппера
+                Mapper.Initialize(cfg => cfg.CreateMap<UIResume, Resume>());
+                //сопоставление
+                Resume DBResume = Mapper.Map<UIResume, Resume>(resume);             
+                DBResume.User = user;
+                user.Resumes.Add(DBResume);
+                db.Users.Attach(user);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }    
 
         // GET: Resumes/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -73,25 +81,37 @@ namespace Ifrit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resume resume = await db.Resumes.FindAsync(id);
-            if (resume == null)
+            Resume DBresume = await db.Resumes.FindAsync(id);
+            if (DBresume == null)
             {
                 return HttpNotFound();
             }
-            return View(resume);
+            //конфигурация маппера
+            Mapper.Initialize(cfg => cfg.CreateMap<Resume, UIResume>());
+            //сопоставление
+            UIResume UIresume = Mapper.Map<Resume, UIResume>(DBresume);            
+            return View(UIresume);
         }
 
         // POST: Resumes/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ResumeId,Title,Body,Salary")] Resume resume)
-        {            
-            resume.User = await GetCurrentUser();
-            db.Entry(resume).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");            
+        public async Task<ActionResult> Edit(UIResume UIresume)
+        {
+            //ApplicationUser user = await GetCurrentUser();
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await GetCurrentUser();
+                //конфигурация маппера
+                Mapper.Initialize(cfg => cfg.CreateMap<UIResume, Resume>());
+                //сопоставление
+                Resume DBresume = Mapper.Map<UIResume, Resume>(UIresume);                
+                DBresume.User = user;
+                db.Entry(DBresume).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View();                      
         }
 
         // GET: Resumes/Delete/5

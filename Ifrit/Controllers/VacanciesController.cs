@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Ifrit.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using AutoMapper;
 
 namespace Ifrit.Controllers
 {
@@ -55,13 +56,22 @@ namespace Ifrit.Controllers
         // POST: Vacancies/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Vacancy vacancy)
+        public async Task<ActionResult> Create(UIVacancy vacancy)
         {
-            var user = await GetCurrentUser();
-            user.Vacancies.Add(vacancy);
-            db.Users.Attach(user);
-            await db.SaveChangesAsync();            
-            return RedirectToAction("Index");   
+            ApplicationUser user = await GetCurrentUser();           
+            if (ModelState.IsValid)
+            {
+                //конфигурация маппера
+                Mapper.Initialize(cfg => cfg.CreateMap<UIVacancy, Vacancy>());
+                //сопоставление
+                Vacancy DBvacancy = Mapper.Map<UIVacancy, Vacancy>(vacancy);
+                DBvacancy.User = user;
+                user.Vacancies.Add(DBvacancy);
+                db.Users.Attach(user);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }          
+            return View();   
         }
 
         // GET: Vacancies/Edit/5
@@ -71,23 +81,35 @@ namespace Ifrit.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vacancy vacancy = await db.Vacancies.FindAsync(id);
-            if (vacancy == null)
+            Vacancy DBvacancy = await db.Vacancies.FindAsync(id);
+            if (DBvacancy == null)
             {
                 return HttpNotFound();
             }
-            return View(vacancy);
+            //конфигурация маппера
+            Mapper.Initialize(cfg => cfg.CreateMap<Vacancy, UIVacancy>());
+            //сопоставление
+            UIVacancy UIvacancy = Mapper.Map<Vacancy, UIVacancy>(DBvacancy);
+            return View(UIvacancy);
         }
 
         // POST: Vacancies/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Vacancy vacancy)
-        {                
-                vacancy.User = await GetCurrentUser();
-                db.Entry(vacancy).State = EntityState.Modified;
+        public async Task<ActionResult> Edit(UIVacancy UIvacancy)
+        {
+            if (ModelState.IsValid)
+            {
+                //конфигурация маппера
+                Mapper.Initialize(cfg => cfg.CreateMap<UIVacancy, Vacancy>());
+                //сопоставление
+                Vacancy DBvacancy = Mapper.Map<UIVacancy, Vacancy>(UIvacancy);
+                DBvacancy.User = await GetCurrentUser();
+                db.Entry(DBvacancy).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");            
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         // GET: Vacancies/Delete/5
