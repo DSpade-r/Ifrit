@@ -63,7 +63,9 @@ namespace Ifrit.Models
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
-
+        //[Required]
+        //[Display(Name = "Ваша роль")]
+        public string Role { get; set; }
         [Display(Name = "Запомнить меня")]
         public bool RememberMe { get; set; }
     }

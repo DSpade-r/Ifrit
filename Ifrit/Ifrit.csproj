@@ -324,6 +324,7 @@
     <Content Include="Views\Resumes\FindResult.cshtml" />
     <Content Include="Views\Vacancies\Find.cshtml" />
     <Content Include="Views\Vacancies\FindResult.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611121045235_DataMigration.resx">
