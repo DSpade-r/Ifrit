@@ -1,4 +1,7 @@
-﻿@{
+﻿<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@{
     if (Context.User.IsInRole("applicant"))
     {
         Layout = "~/Views/Shared/_LayoutApplicant.cshtml";

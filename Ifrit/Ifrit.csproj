@@ -251,6 +251,14 @@
     <Compile Include="Migrations\201611141137053_Correct7.Designer.cs">
       <DependentUpon>201611141137053_Correct7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611141250451_Correct8.cs" />
+    <Compile Include="Migrations\201611141250451_Correct8.Designer.cs">
+      <DependentUpon>201611141250451_Correct8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141256270_Correct9.cs" />
+    <Compile Include="Migrations\201611141256270_Correct9.Designer.cs">
+      <DependentUpon>201611141256270_Correct9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModel.cs" />
@@ -334,6 +342,8 @@
     <Content Include="Views\Vacancies\Find.cshtml" />
     <Content Include="Views\Vacancies\FindResult.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Employer\EditBusinessCard.cshtml" />
+    <Content Include="Views\Employer\ShowBusinessCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611121045235_DataMigration.resx">
@@ -366,6 +376,12 @@
     <EmbeddedResource Include="Migrations\201611141137053_Correct7.resx">
       <DependentUpon>201611141137053_Correct7.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141250451_Correct8.resx">
+      <DependentUpon>201611141250451_Correct8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141256270_Correct9.resx">
+      <DependentUpon>201611141256270_Correct9.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -381,7 +397,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Views\Employer\" />
     <Folder Include="Views\Interaction\" />
   </ItemGroup>
   <PropertyGroup>

@@ -39,6 +39,8 @@ namespace Ifrit.Models
     public class BusinessCard
     {
         public int BusinessCardId { get; set; }
+        [Required]
+        public string Title { get; set; }
         [Column(TypeName = "image")]
         public byte[] Logo { get; set; }
         [Required]
