@@ -38,5 +38,5 @@ namespace Ifrit.Models
     public class UIFindVacancy
     {
         public string Title { get; set; }
-    }
+    }    
 }

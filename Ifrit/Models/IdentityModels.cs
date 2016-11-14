@@ -12,6 +12,7 @@ namespace Ifrit.Models
     {        
         public virtual ICollection<Vacancy> Vacancies { get; set; }
         public virtual ICollection<Resume> Resumes { get; set; }
+        public virtual ICollection<BusinessCard> BusinessCards { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {            
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
@@ -23,6 +24,7 @@ namespace Ifrit.Models
         {
             Vacancies = new List<Vacancy>();
             Resumes = new List<Resume>();
+            BusinessCards = new List<BusinessCard>();
         }
     }
 

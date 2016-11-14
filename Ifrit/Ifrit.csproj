@@ -202,6 +202,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -241,6 +242,14 @@
     <Compile Include="Migrations\201611130749324_Correct5.cs" />
     <Compile Include="Migrations\201611130749324_Correct5.Designer.cs">
       <DependentUpon>201611130749324_Correct5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141121404_Correct6.cs" />
+    <Compile Include="Migrations\201611141121404_Correct6.Designer.cs">
+      <DependentUpon>201611141121404_Correct6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141137053_Correct7.cs" />
+    <Compile Include="Migrations\201611141137053_Correct7.Designer.cs">
+      <DependentUpon>201611141137053_Correct7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -351,6 +360,12 @@
     <EmbeddedResource Include="Migrations\201611130749324_Correct5.resx">
       <DependentUpon>201611130749324_Correct5.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141121404_Correct6.resx">
+      <DependentUpon>201611141121404_Correct6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141137053_Correct7.resx">
+      <DependentUpon>201611141137053_Correct7.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -366,6 +381,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Views\Employer\" />
     <Folder Include="Views\Interaction\" />
   </ItemGroup>
   <PropertyGroup>

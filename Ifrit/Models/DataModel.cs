@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -33,5 +34,19 @@ namespace Ifrit.Models
         public decimal Salary { get; set; }
         [Required]
         public ApplicationUser User { get; set; }
+    }
+
+    public class BusinessCard
+    {
+        public int BusinessCardId { get; set; }
+        [Column(TypeName = "image")]
+        public byte[] Logo { get; set; }
+        [Required]
+        public string Adress { get; set; }
+        public string WebSite { get; set; }
+        [Required]
+        public string Description { get; set; } 
+        [Required]    
+        public ApplicationUser User { get; set; }   
     }
 }

@@ -23,7 +23,7 @@ namespace Ifrit
             var from = "ifrit-project@yandex.ru";
             var pass = "Ifrit_Admin";
             //адрес и порт smtp-сервера, с которого будет отправляться письмо
-            SmtpClient client = new SmtpClient("smtp.yandex.ru", 465);
+            SmtpClient client = new SmtpClient("smtp.yandex.ru", 587);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential(from, pass);

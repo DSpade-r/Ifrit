@@ -49,7 +49,7 @@ namespace Ifrit.Migrations
             //}
             //привязка ролей к пользователям(в таблице по ключам)
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            //UserManager.AddToRole("ba1c86aa-674c-4a8b-8836-63d0b9dc86dc", "admin"); //идентификатор пользователя привязываем к названию(Name) роли
+            //UserManager.AddToRole("e3226cbb-31a9-4b1a-8240-dde8da86ece6", "admin"); //идентификатор пользователя привязываем к названию(Name) роли
         }
     }
 }
