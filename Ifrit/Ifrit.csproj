@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201611141256270_Correct9.Designer.cs">
       <DependentUpon>201611141256270_Correct9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611171330578_Correct10.cs" />
+    <Compile Include="Migrations\201611171330578_Correct10.Designer.cs">
+      <DependentUpon>201611171330578_Correct10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModel.cs" />
@@ -342,8 +346,10 @@
     <Content Include="Views\Vacancies\Find.cshtml" />
     <Content Include="Views\Vacancies\FindResult.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
-    <Content Include="Views\Employer\EditBusinessCard.cshtml" />
+    <Content Include="Views\Employer\GetBusinessCard.cshtml" />
     <Content Include="Views\Employer\ShowBusinessCard.cshtml" />
+    <Content Include="Views\Employer\DeleteBusinessCard.cshtml" />
+    <Content Include="Views\Employer\EditBusinessCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611121045235_DataMigration.resx">
@@ -381,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611141256270_Correct9.resx">
       <DependentUpon>201611141256270_Correct9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611171330578_Correct10.resx">
+      <DependentUpon>201611171330578_Correct10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

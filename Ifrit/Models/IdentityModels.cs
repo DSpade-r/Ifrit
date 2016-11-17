@@ -36,6 +36,7 @@ namespace Ifrit.Models
         }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Resume> Resumes { get; set; }
+        public DbSet<BusinessCard> BusinessCards { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
