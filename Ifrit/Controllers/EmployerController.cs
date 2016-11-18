@@ -112,17 +112,14 @@ namespace Ifrit.Controllers
         public async Task<ActionResult> EditBusinessCard(UIBusinessCard UserBusinessCard, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
-            {               
-                BusinessCard DBUserBusinessCard = await db.BusinessCards.FindAsync(UserBusinessCard.BusinessCardId);
+            {
+                BusinessCard DBUserBusinessCard = await db.BusinessCards.FindAsync(UserBusinessCard.BusinessCardId);                             
                 //конфигурация маппера
-                //Mapper.Initialize(cfg => cfg.CreateMap<UIBusinessCard, BusinessCard>().ForMember(m => m.Logo, m => m.Ignore()));
+                Mapper.Initialize(cfg => cfg.CreateMap<UIBusinessCard, BusinessCard>().ForMember(d => d.Logo, (options) => options.Ignore()));
                 //сопоставление
-                //DBUserBusinessCard = Mapper.Map<UIBusinessCard, BusinessCard>(UserBusinessCard);
-                DBUserBusinessCard.Title = UserBusinessCard.Title;
-                DBUserBusinessCard.Description = UserBusinessCard.Description;
-                DBUserBusinessCard.Adress = UserBusinessCard.Adress;
-                ApplicationUser user = await GetCurrentUser();
-                DBUserBusinessCard.User = user;
+                Mapper.Map(UserBusinessCard, DBUserBusinessCard);
+                ApplicationUser user = await GetCurrentUser();            
+                DBUserBusinessCard.User = user;                
                 if (uploadImage != null)
                 {
                     byte[] imageData = null;
